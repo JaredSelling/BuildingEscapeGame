@@ -38,12 +38,12 @@ void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 		OpenDoor();
 	}
 
+	
 }
 
 
 void UOpenDoor::OpenDoor()
 {
-
 	AActor* Owner = GetOwner();
 
 	FRotator Rotation = Owner->GetActorRotation();
