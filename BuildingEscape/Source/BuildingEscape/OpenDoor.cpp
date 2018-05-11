@@ -4,6 +4,8 @@
 #include "GameFramework/Actor.h"
 #include "Engine/World.h"
 
+#define OUT
+
 
 // Sets default values for this component's properties
 UOpenDoor::UOpenDoor()
@@ -32,7 +34,7 @@ void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	//Poll the Trigger Volume
-	if (GetTotalMassOfActorsOnPlate() > 50.f) //TODO make into a parameter
+	if (GetTotalMassOfActorsOnPlate() > 30.f) //TODO make into a parameter
 	{
 		//If the ActorThatOpens is in the volume
 		OpenDoor();
@@ -57,6 +59,24 @@ void UOpenDoor::CloseDoor()
 
 float UOpenDoor::GetTotalMassOfActorsOnPlate()
 {
+	float TotalMass = 0.f;
 
-	return 30.f;
+	//find all overlapping actors
+	TArray<AActor*> OverlappingActors;
+	if (PressurePlate)
+	{
+		PressurePlate->GetOverlappingActors(
+			OUT OverlappingActors
+		);
+
+		for (const auto* Actor : OverlappingActors)
+		{
+			TotalMass += Actor->FindComponentByClass<UPrimitiveComponent>()->GetMass();
+			UE_LOG(LogTemp, Warning, TEXT("%s on pressure plate"), *Actor->GetName());
+		}
+	}
+
+
+	
+	return TotalMass;
 }
