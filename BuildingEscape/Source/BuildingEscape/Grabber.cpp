@@ -78,6 +78,8 @@ void UGrabber::Grab()
 	UPrimitiveComponent* ComponentToGrab = HitResult.GetComponent();
 	auto ActorHit = HitResult.GetActor();
 
+	UE_LOG(LogTemp, Warning, TEXT("Grab called"));
+
 	///if we hit something, then attach a physics handle
 	if (ActorHit)
 	{
@@ -88,6 +90,7 @@ void UGrabber::Grab()
 			ActorHit->GetActorLocation(),
 			ComponentToGrab->GetOwner()->GetActorRotation()
 		);
+		UE_LOG(LogTemp, Warning, TEXT("% grabbed."), *ActorHit->GetName());
 	}
 }
 
