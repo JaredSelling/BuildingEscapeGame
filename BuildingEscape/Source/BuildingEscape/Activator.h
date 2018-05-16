@@ -26,14 +26,14 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 private:
-	UInputComponent* InputComponent = nullptr;
+	UPROPERTY(EditAnywhere)
 	ATriggerVolume* MatchingTrigger = nullptr;
 	ATriggerVolume* OverlappingTrigger = nullptr;
 	
 	bool IsActivated;
 
-	ATriggerVolume GetOverlappingTrigger();
-	void SetupInputComponent();
-	void Activate();
+	//ATriggerVolume GetMatchingTrigger();
+	//ATriggerVolume GetOverlappingTrigger();
+	//void Activate();
 	
 };

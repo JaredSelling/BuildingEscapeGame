@@ -19,9 +19,7 @@ UActivator::UActivator()
 void UActivator::BeginPlay()
 {
 	Super::BeginPlay();
-
-	//Setup input component
-	//
+	//Determine matching Trigger
 	
 }
 
@@ -36,26 +34,20 @@ void UActivator::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompo
 
 }
 
-ATriggerVolume UActivator::GetOverlappingTrigger()
-{
-	return ATriggerVolume();
-}
-
-void UActivator::SetupInputComponent()
-{
-	InputComponent = GetOwner()->FindComponentByClass<UInputComponent>();
-	if (InputComponent)
-	{
-		InputComponent->BindAction("Activate", IE_Pressed, this, UActivator::Activate);
-	}
-	else
-	{
-		UE_LOG(LogTemp, Error, TEXT("%s is missing input component"), *GetOwner()->GetName())
-	}
-}
-
-void UActivator::Activate()
-{
-
-}
+//ATriggerVolume UActivator::GetMatchingTrigger()
+//{
+//	return ATriggerVolume();
+//}
+//
+//ATriggerVolume UActivator::GetOverlappingTrigger()
+//{
+//	return ATriggerVolume();
+//}
+//
+//
+//
+//void UActivator::Activate()
+//{
+//
+//}
 
