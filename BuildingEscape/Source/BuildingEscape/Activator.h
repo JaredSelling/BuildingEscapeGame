@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
-#include "Engine/TriggerVolume.h"
+#include "Components/BoxComponent.h"
 #include "Activator.generated.h"
 
 
@@ -27,8 +27,7 @@ public:
 
 private:
 	UPROPERTY(EditAnywhere)
-	ATriggerVolume* MatchingTrigger = nullptr;
-	ATriggerVolume* OverlappingTrigger = nullptr;
+	UBoxComponent* MatchingBoxCollision = nullptr;
 	
 	bool IsActivated;
 
