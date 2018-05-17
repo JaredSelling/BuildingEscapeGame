@@ -28,7 +28,14 @@ void UOpenDoorWithStatueTriggers::TickComponent(float DeltaTime, ELevelTick Tick
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	//if all 3 triggers are activated, open door
-	CheckTriggers();
+	if (CheckTriggers())
+	{
+		OnOpen.Broadcast();
+	}
+	else
+	{
+		OnClose.Broadcast();
+	}
 	//close door otherwise
 }
 

@@ -6,6 +6,7 @@
 #include "Components/ActorComponent.h"
 #include "OpenDoorWithStatueTriggers.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FDoorTrigger);
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class BUILDINGESCAPE_API UOpenDoorWithStatueTriggers : public UActorComponent
@@ -24,6 +25,13 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
+	UPROPERTY(BlueprintAssignable)
+	FDoorTrigger OnOpen;
+
+	UPROPERTY(BlueprintAssignable)
+	FDoorTrigger OnClose;
+
+private:
 	UPROPERTY(EditAnywhere)
 	TArray<AActor*> DoorTriggers;
 
