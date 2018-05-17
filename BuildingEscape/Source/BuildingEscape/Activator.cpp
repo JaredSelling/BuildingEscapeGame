@@ -3,6 +3,8 @@
 #include "Activator.h"
 #include "GameFramework/Actor.h"
 
+#define OUT
+
 
 // Sets default values for this component's properties
 UActivator::UActivator()
@@ -19,8 +21,6 @@ UActivator::UActivator()
 void UActivator::BeginPlay()
 {
 	Super::BeginPlay();
-	//Determine matching Trigger
-	
 }
 
 
@@ -30,24 +30,43 @@ void UActivator::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompo
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	//poll the appropriate trigger volume
+	if (IsOverlappingMatchingTrigger())
+	{
+		IsActivated = true;
+	}
+	else
+	{
+		IsActivated = false;
+	}
 		//if overlapping, activate
 
 }
 
-//ATriggerVolume UActivator::GetMatchingTrigger()
-//{
-//	return ATriggerVolume();
-//}
-//
-//ATriggerVolume UActivator::GetOverlappingTrigger()
-//{
-//	return ATriggerVolume();
-//}
-//
-//
-//
-//void UActivator::Activate()
-//{
-//
-//}
+
+bool UActivator::IsOverlappingMatchingTrigger()
+{
+	//find the actors overlapping with the matching trigger
+	TArray<AActor*> OverlappingActors;
+	if (!MatchingTrigger) { return false; }
+	if (MatchingTrigger)
+	{
+		MatchingTrigger->GetOverlappingActors(
+			OUT OverlappingActors
+		);
+		for (const auto* Actor : OverlappingActors)
+		{
+			if (Actor == GetOwner())
+			{
+				return true;
+			}
+		}
+		
+	}
+	return false;
+}
+
+bool UActivator::GetActivationStatus()
+{
+	return IsActivated;
+}
 

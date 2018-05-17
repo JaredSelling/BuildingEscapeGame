@@ -36,7 +36,7 @@ void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	//Poll the Trigger Volume
-	if (GetTotalMassOfActorsOnPlate() > TriggerMass) //TODO make into a parameter
+	if (GetTotalMassOfActorsOnPlate() > TriggerMass)
 	{
 		//If the ActorThatOpens is in the volume
 		OnOpen.Broadcast();

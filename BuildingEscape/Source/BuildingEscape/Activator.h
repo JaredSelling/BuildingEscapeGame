@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
-#include "Components/BoxComponent.h"
+#include "Engine/TriggerVolume.h"
 #include "Activator.generated.h"
 
 
@@ -24,15 +24,14 @@ protected:
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+	bool GetActivationStatus();
 
 private:
 	UPROPERTY(EditAnywhere)
-	UBoxComponent* MatchingBoxCollision = nullptr;
-	
+	ATriggerVolume* MatchingTrigger = nullptr;
+	ATriggerVolume* OverlappingTrigger = nullptr;
 	bool IsActivated;
+	bool IsOverlappingMatchingTrigger();
 
-	//ATriggerVolume GetMatchingTrigger();
-	//ATriggerVolume GetOverlappingTrigger();
-	//void Activate();
 	
 };

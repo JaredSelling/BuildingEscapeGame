@@ -34,6 +34,8 @@ public:
 	FDoorEvent OnClose;
 
 private:
+	AActor* DoorToOpen = nullptr;
+
 	UPROPERTY(EditAnywhere)
 	ATriggerVolume* PressurePlate = nullptr;
 
