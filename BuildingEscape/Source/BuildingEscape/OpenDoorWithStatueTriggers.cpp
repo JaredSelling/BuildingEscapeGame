@@ -18,7 +18,6 @@ UOpenDoorWithStatueTriggers::UOpenDoorWithStatueTriggers()
 void UOpenDoorWithStatueTriggers::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 
