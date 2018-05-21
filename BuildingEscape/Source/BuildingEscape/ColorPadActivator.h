@@ -26,10 +26,13 @@ public:
 
 private:
 	bool IsActive;
+
 	UPROPERTY(EditAnywhere)
-	AActor* PreviousPad = nullptr;
+	AActor* NextCorrectPad = nullptr;
+
 	UPROPERTY(EditAnywhere)
-	TArray<AActor*> RequiredPads;
+	AActor* PreviousCorrectPad = nullptr;
+
 	UPROPERTY(EditAnywhere)
 	TArray<AActor*> TriggerPads;
 };

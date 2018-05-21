@@ -29,12 +29,18 @@ void UColorPadActivator::TickComponent(float DeltaTime, ELevelTick TickType, FAc
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	//loop through RequiredPads
-		//if all are active, set current pad to active
-		//otherwise set this and all pads in RequiredPads to inactive
+	//get overlapping pad
 
-	//loop through TriggerPads
-		//if all are active, open door
-		//otherwise, close door
+	//set current pad
+
+	//if current pad has no previous pads and is a trigger pad
+		//set active
+
+	//if current pad has no previous pads and is NOT trigger pad
+		//do nothing
+
+	//if current pad's previous correct pad is active
+		//activate current pad
+	//otherwise deactivate all pads
 }
 
