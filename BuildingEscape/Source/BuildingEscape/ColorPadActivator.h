@@ -33,4 +33,7 @@ private:
 	UPROPERTY(EditAnywhere)
 	bool IsTrigger = false;
 
+	void DeactivateAllColorPads();
+
+	bool DetermineIfPlayerOverlaps();
 };

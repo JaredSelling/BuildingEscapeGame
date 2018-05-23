@@ -34,16 +34,7 @@ void UColorPadActivator::BeginPlay()
 void UColorPadActivator::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
-	//get overlapping pad
-	TArray<AActor*> OverlappingActors;
-
-	GetOwner()->GetOverlappingActors(
-		OUT OverlappingActors,
-		ADefaultPawn::StaticClass()
-	);
-
-	if (OverlappingActors.IsValidIndex(0))
+	if (DetermineIfPlayerOverlaps())
 	{
 		if (IsTrigger)
 		{
@@ -51,16 +42,7 @@ void UColorPadActivator::TickComponent(float DeltaTime, ELevelTick TickType, FAc
 		}
 		else
 		{
-			for (TObjectIterator<UColorPadActivator> Itr; Itr; ++Itr)
-			{
-				UColorPadActivator *Trigger = *Itr;
-				Itr->IsActive = false;
-				if (Itr->GetOwner())
-				{
-					UE_LOG(LogTemp, Warning, TEXT("%s deactivated"), *Itr->GetOwner()->GetName());
-				}
-				
-			}
+			DeactivateAllColorPads();
 		}
 	}
 }
@@ -68,5 +50,40 @@ void UColorPadActivator::TickComponent(float DeltaTime, ELevelTick TickType, FAc
 bool UColorPadActivator::GetActivationStatus()
 {
 	return IsActive;
+}
+
+void UColorPadActivator::DeactivateAllColorPads()
+{
+	for (TObjectIterator<UColorPadActivator> Itr; Itr; ++Itr)
+	{
+		UColorPadActivator *Trigger = *Itr;
+		Itr->IsActive = false;
+		if (Itr->GetOwner())
+		{
+			UE_LOG(LogTemp, Warning, TEXT("%s deactivated"), *Itr->GetOwner()->GetName());
+		}
+	}
+	return;
+}
+
+bool UColorPadActivator::DetermineIfPlayerOverlaps()
+{
+	TArray<AActor*> OverlappingActors;
+
+	GetOwner()->GetOverlappingActors(
+		OUT OverlappingActors,
+		ADefaultPawn::StaticClass()
+	);
+	
+	if (OverlappingActors.IsValidIndex(0))
+	{
+		//player is overlapping
+		return true;
+	}
+	else
+	{
+		//player is not overlapping
+		return false;
+	}
 }
 
