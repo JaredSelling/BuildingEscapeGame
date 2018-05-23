@@ -1,7 +1,13 @@
 // Copright Jared Selling 2018
 
 #include "ColorPadActivator.h"
+#include "GameFramework/DefaultPawn.h"
+#include "Components/ActorComponent.h"
+#include "OpenDoorWithColorPads.h"
+#include "EngineUtils.h"
+#include "UObjectIterator.h"
 
+#define OUT
 
 // Sets default values for this component's properties
 UColorPadActivator::UColorPadActivator()
@@ -30,17 +36,37 @@ void UColorPadActivator::TickComponent(float DeltaTime, ELevelTick TickType, FAc
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	//get overlapping pad
+	TArray<AActor*> OverlappingActors;
 
-	//set current pad
+	GetOwner()->GetOverlappingActors(
+		OUT OverlappingActors,
+		ADefaultPawn::StaticClass()
+	);
 
-	//if current pad has no previous pads and is a trigger pad
-		//set active
+	if (OverlappingActors.IsValidIndex(0))
+	{
+		if (IsTrigger)
+		{
+			IsActive = true;
+		}
+		else
+		{
+			for (TObjectIterator<UColorPadActivator> Itr; Itr; ++Itr)
+			{
+				UColorPadActivator *Trigger = *Itr;
+				Itr->IsActive = false;
+				if (Itr->GetOwner())
+				{
+					UE_LOG(LogTemp, Warning, TEXT("%s deactivated"), *Itr->GetOwner()->GetName());
+				}
+				
+			}
+		}
+	}
+}
 
-	//if current pad has no previous pads and is NOT trigger pad
-		//do nothing
-
-	//if current pad's previous correct pad is active
-		//activate current pad
-	//otherwise deactivate all pads
+bool UColorPadActivator::GetActivationStatus()
+{
+	return IsActive;
 }
 

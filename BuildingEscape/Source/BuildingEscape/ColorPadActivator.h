@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "Engine/TriggerVolume.h"
 #include "ColorPadActivator.generated.h"
 
 
@@ -24,15 +25,12 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
+	bool GetActivationStatus();
+
 private:
 	bool IsActive;
 
 	UPROPERTY(EditAnywhere)
-	AActor* NextCorrectPad = nullptr;
+	bool IsTrigger = false;
 
-	UPROPERTY(EditAnywhere)
-	AActor* PreviousCorrectPad = nullptr;
-
-	UPROPERTY(EditAnywhere)
-	TArray<AActor*> TriggerPads;
 };
