@@ -30,22 +30,35 @@ void UOpenDoorWithColorPads::BeginPlay()
 void UOpenDoorWithColorPads::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
-	//loop through trigger pads
-	for (AActor* Trigger : TriggerPads)
+	if (DetermineIfAllTriggersActive())
 	{
-		//if all are active, open door
-		bool ActivationStatus = Trigger->FindComponentByClass<UColorPadActivator>()->GetActivationStatus();
-		if (ActivationStatus)
-		{
-			UE_LOG(LogTemp, Warning, TEXT("%s ACTIVATED"), *Trigger->GetName())
-		}
-		//otherwise, close door
+		OnOpen.Broadcast();
 	}
+	else
+	{
+		OnClose.Broadcast();
+	}
+	
+
 }
 
 TArray<AActor*> UOpenDoorWithColorPads::GetTriggerPads()
 {
 	return TriggerPads;
+}
+
+bool UOpenDoorWithColorPads::DetermineIfAllTriggersActive()
+{
+	for (AActor* Trigger : TriggerPads)
+	{
+		bool ActivationStatus = Trigger->FindComponentByClass<UColorPadActivator>()->GetActivationStatus();
+		if (!ActivationStatus)
+		{
+			//not all triggers are active
+			return false;
+		}
+	}
+	//all triggers are active
+	return true;
 }
 
