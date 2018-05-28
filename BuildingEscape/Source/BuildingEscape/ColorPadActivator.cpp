@@ -52,6 +52,11 @@ bool UColorPadActivator::GetActivationStatus()
 	return IsActive;
 }
 
+bool UColorPadActivator::GetIsTrigger()
+{
+	return IsTrigger;
+}
+
 void UColorPadActivator::DeactivateAllColorPads()
 {
 	for (TObjectIterator<UColorPadActivator> Itr; Itr; ++Itr)

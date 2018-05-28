@@ -26,6 +26,7 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 	bool GetActivationStatus();
+	bool GetIsTrigger();
 
 private:
 	bool IsActive;
